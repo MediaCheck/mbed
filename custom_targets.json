@@ -1,0 +1,181 @@
+{
+    "BYZANCE_IODAG3E": {
+        "inherits": ["FAMILY_STM32"],
+        "core": "Cortex-M4F",
+        "progen": {"target": "Byzance-IodaG3E"},
+        "extra_labels_add": ["STM32F4", "STM32F437", "STM32F437II", "STM32F437xI", "STM_EMAC"],
+        "supported_toolchains": ["GCC_ARM"],
+        "default_toolchain": "GCC_ARM",
+        "mbed-trace.enable": 1,
+        "debug-trace": "true",        
+        "target_overrides": {
+            "*": {
+                "use-malloc-for-heap": true,
+                "mbed-mesh-api.heap-size": 10000,
+                "lwip.ppp-enabled": false,
+                "platform.default-serial-baud-rate": 115200
+            }
+        },
+        "nanostack.configuration":"lowpan_border_router",
+        "macros_add": ["USB_STM_HAL", "USBHOST_OTHER", "BYZANCE_APP_START=0x08010000", "BYZANCE_USE_ETH_HEAP", "DEVICE_SERIAL_ASYNCH=1", "BYZANCE_USE_NAT64", "RTC_LSI=1"],
+        "config": {
+            "clock_source": {
+                "help": "Mask value : USE_PLL_HSE_EXTC | USE_PLL_HSE_XTAL | USE_PLL_HSI",
+                "value": "USE_PLL_HSE_XTAL",
+                "macro_name": "CLOCK_SOURCE"
+            },
+            "clock_source_usb": {
+                "help": "As 48 Mhz clock is configured for USB, SYSCLK has to be reduced from 180 to 168 MHz (set 0 for the max SYSCLK value)",
+                "value": "1",
+                "macro_name": "CLOCK_SOURCE_USB"
+            },
+            "hse_value": {
+              "value": "25000000",
+              "macro_name": "HSE_VALUE"
+            }, 
+            "lowpowertimer_lptim": {
+                "help": "This target supports LPTIM. Set value 1 to use LPTIM for LOWPOWERTIMER, or 0 to use RTC wakeup timer",
+                "value": 0
+            }       
+        },
+        "device_has_add": ["ANALOGIN", "ANALOGOUT", "ERROR_RED", "I2C", "I2CSLAVE", "INTERRUPTIN", "PORTIN", "PORTINOUT", "PORTOUT", "PWMOUT", "RTC", "SERIAL", "SERIAL_ASYNCH", "SERIAL_FC", "SLEEP", "SPI", "SPISLAVE", "SPI_ASYNCH", "STDIO_MESSAGES", "TRNG", "LOWPOWERTIMER", "EMAC", "MPU", "USTICKER", "WATCHDOG", "USBDEVICE", "FLASH"],
+        "components_add": ["FLASHIAP"],
+        "overrides": {
+            "network-default-interface-type": "ETHERNET"
+        }        
+    },
+    "BYZANCE_IODAG3G": {
+        "inherits": ["FAMILY_STM32"],
+        "core": "Cortex-M4F",
+        "progen": {"target": "Byzance-IodaG3G"},
+        "extra_labels_add": ["STM32F4", "STM32F412xG", "STM32F412ZG"],
+        "supported_toolchains": ["GCC_ARM"],
+        "default_toolchain": "GCC_ARM",
+        "mbed-trace.enable": 1,
+        "debug-trace": "true",        
+        "target_overrides": {
+            "*": {
+                "lwip.ppp-enabled": false,
+                "platform.default-serial-baud-rate": 115200
+            }
+        },
+        "macros_add": ["BYZANCE_APP_START=0x08010000", "BYZANCE_USE_ETH_HEAP", "DEVICE_SERIAL_ASYNCH=1", "BYZANCE_USE_NAT64", "RTC_LSI=1"],
+        "config": {
+            "clock_source": {
+                "help": "Mask value : USE_PLL_HSE_EXTC | USE_PLL_HSE_XTAL | USE_PLL_HSI",
+                "value": "USE_PLL_HSI",
+                "macro_name": "CLOCK_SOURCE"
+            },
+            "lowpowertimer_lptim": {
+                "help": "This target supports LPTIM. Set value 1 to use LPTIM for LOWPOWERTIMER, or 0 to use RTC wakeup timer",
+                "value": 0
+            }      
+        },
+        "device_has_add": ["ANALOGIN", "ERROR_RED", "I2C", "I2CSLAVE", "INTERRUPTIN", "PORTIN", "PORTINOUT", "PORTOUT", "PWMOUT", "RTC", "SERIAL", "SERIAL_ASYNCH", "SERIAL_FC", "SLEEP", "SPI", "SPISLAVE", "SPI_ASYNCH", "STDIO_MESSAGES", "TRNG", "LOWPOWERTIMER", "MPU", "USTICKER", "WATCHDOG", "FLASH"],
+        "components_add": ["FLASHIAP"],
+        "overrides": {
+            "network-default-interface-type": "CELLULAR"
+        }   
+    },
+    "BYZANCE_IODAG3E_BOOTLOADER": {
+        "inherits": ["FAMILY_STM32"],
+        "core": "Cortex-M4F",
+        "progen": {"target": "Byzance-IodaG3E-bootloader"},
+        "extra_labels_add": ["STM32F4", "STM32F437", "STM32F437II", "STM32F437xI"],
+        "supported_toolchains": ["GCC_ARM"],
+        "default_toolchain": "GCC_ARM",
+        "macros": ["BYZANCE_APP_START=0x08000000"],
+        "target_overrides": {
+            "*": {
+                "platform.default-serial-baud-rate": 115200
+            }
+        },
+        "config": {
+            "clock_source": {
+                "help": "Mask value : USE_PLL_HSE_EXTC | USE_PLL_HSE_XTAL | USE_PLL_HSI",
+                "value": "USE_PLL_HSE_XTAL",
+                "macro_name": "CLOCK_SOURCE"
+            },
+            "clock_source_usb": {
+                "help": "As 48 Mhz clock is configured for USB, SYSCLK has to be reduced from 180 to 168 MHz (set 0 for the max SYSCLK value)",
+                "value": "1",
+                "macro_name": "CLOCK_SOURCE_USB"
+            },
+            "hse_value": {
+                "value": "25000000",
+                "macro_name": "HSE_VALUE"
+            }  
+        },
+        "device_has_add": [
+            "ERROR_RED", 
+            "SERIAL_ASYNCH", 
+            "MPU",
+            "FLASH"
+        ],
+        "components_add": ["FLASHIAP"],
+        "device_has_remove": [
+            "LPTICKER",
+            "RTC",
+            "ANALOGIN",
+            "I2C",
+            "I2CSLAVE",
+            "I2C_ASYNCH",
+            "PORTIN",
+            "PORTINOUT",
+            "PORTOUT",
+            "PWMOUT",
+            "SLEEP",
+            "SPISLAVE",
+            "SPI_ASYNCH",
+            "WATCHDOG",
+            "RESET_REASON"
+        ]        
+    },
+    "BYZANCE_IODAG3G_BOOTLOADER": {
+        "inherits": ["FAMILY_STM32"],
+        "core": "Cortex-M4F",
+        "progen": {"target": "Byzance-IodaG3G-bootloader"},
+        "extra_labels_add": ["STM32F4", "STM32F412xG", "STM32F412ZG"],
+        "supported_toolchains": ["GCC_ARM"],
+        "default_toolchain": "GCC_ARM",
+        "macros": ["BYZANCE_APP_START=0x08000000"],
+        "target_overrides": {
+            "*": {
+                "platform.default-serial-baud-rate": 115200
+            }
+        },
+        "config": {
+            "clock_source": {
+                "help": "Mask value : USE_PLL_HSE_EXTC | USE_PLL_HSE_XTAL | USE_PLL_HSI",
+                "value": "USE_PLL_HSI",
+                "macro_name": "CLOCK_SOURCE"
+            }
+        },        
+        "device_has_add": [
+            "ERROR_RED", 
+            "SERIAL_ASYNCH", 
+            "MPU", 
+            "USTICKER",
+            "FLASH"
+        ],
+        "components_add": ["FLASHIAP"],
+        "device_has_remove": [
+            "LPTICKER",
+            "RTC",
+            "ANALOGIN",
+            "I2C",
+            "I2CSLAVE",
+            "I2C_ASYNCH",
+            "PORTIN",
+            "PORTINOUT",
+            "PORTOUT",
+            "PWMOUT",
+            "SLEEP",
+            "SPISLAVE",
+            "SPI_ASYNCH",
+            "WATCHDOG",
+            "RESET_REASON"
+        ]    
+    }
+}
+
